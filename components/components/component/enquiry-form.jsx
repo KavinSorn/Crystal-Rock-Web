@@ -12,6 +12,12 @@ export function EnquiryForm() {
     const sendEmail = (e) => {
         e.preventDefault();
 
+        // Validation: At least one of phone or email must be provided
+        if (!email && !phone) {
+            alert("Please provide either an email address or a phone number.");
+            return; // Prevent form submission
+        }
+
         const templateParams = {
             user_name: name,
             user_email: email,
@@ -37,7 +43,6 @@ export function EnquiryForm() {
                 }
             );
     };
-
     return (
         <form
             onSubmit={sendEmail}
