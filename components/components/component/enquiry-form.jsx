@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export function EnquiryForm() {
@@ -8,15 +8,27 @@ export function EnquiryForm() {
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
     const [message, setMessage] = useState("");
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    useEffect(() => {
+        // Ensure all fields are filled and at least one contact detail is provided
+        if (
+            name.trim() !== "" &&
+            (email.trim() !== "" || phone.trim() !== "") &&
+            checkIn.trim() !== "" &&
+            checkOut.trim() !== "" &&
+            message.trim() !== ""
+        ) {
+            setIsFormValid(true);
+        } else {
+            setIsFormValid(false);
+        }
+    }, [name, email, phone, checkIn, checkOut, message]);
 
     const sendEmail = (e) => {
         e.preventDefault();
 
-        // Validation: At least one of phone or email must be provided
-        if (!email && !phone) {
-            alert("Please provide either an email address or a phone number.");
-            return; // Prevent form submission
-        }
+        if (!isFormValid) return; // Prevent submission if form is invalid
 
         const templateParams = {
             user_name: name,
@@ -43,6 +55,7 @@ export function EnquiryForm() {
                 }
             );
     };
+
     return (
         <form
             onSubmit={sendEmail}
@@ -59,103 +72,88 @@ export function EnquiryForm() {
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-1">
-                    <label
-                        className="block text-sm font-medium text-gray-700"
-                        htmlFor="name"
-                    >
+                    <label className="block text-sm font-medium text-gray-700">
                         Name
                     </label>
                     <input
                         type="text"
-                        name="user_name"
                         className="block w-full p-2 border border-gray-300 rounded-md"
                         placeholder="Enter your name"
-                        required
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="space-y-1">
-                    <label
-                        className="block text-sm font-medium text-gray-700"
-                        htmlFor="email"
-                    >
+                    <label className="block text-sm font-medium text-gray-700">
                         Email
                     </label>
                     <input
                         type="email"
-                        name="user_email"
                         className="block w-full p-2 border border-gray-300 rounded-md"
                         placeholder="Enter your email"
-                        required
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="space-y-1">
-                    <label
-                        className="block text-sm font-medium text-gray-700"
-                        htmlFor="phone"
-                    >
+                    <label className="block text-sm font-medium text-gray-700">
                         Phone
                     </label>
                     <input
                         type="text"
-                        name="user_phone"
                         className="block w-full p-2 border border-gray-300 rounded-md"
                         placeholder="Enter your phone number"
-                        required
+                        value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
                 <div className="space-y-1">
-                    <label
-                        className="block text-sm font-medium text-gray-700"
-                        htmlFor="check-in"
-                    >
+                    <label className="block text-sm font-medium text-gray-700">
                         Check-in
                     </label>
                     <input
                         type="date"
-                        name="check_in"
                         className="block w-full p-2 border border-gray-300 rounded-md"
-                        required
+                        value={checkIn}
                         onChange={(e) => setCheckIn(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="space-y-1">
-                    <label
-                        className="block text-sm font-medium text-gray-700"
-                        htmlFor="check-out"
-                    >
+                    <label className="block text-sm font-medium text-gray-700">
                         Check-out
                     </label>
                     <input
                         type="date"
-                        name="check_out"
                         className="block w-full p-2 border border-gray-300 rounded-md"
-                        required
+                        value={checkOut}
                         onChange={(e) => setCheckOut(e.target.value)}
+                        required
                     />
                 </div>
             </div>
             <div className="space-y-1">
-                <label
-                    className="block text-sm font-medium text-gray-700"
-                    htmlFor="message"
-                >
+                <label className="block text-sm font-medium text-gray-700">
                     Message
                 </label>
                 <textarea
-                    name="message"
                     className="block w-full p-2 border border-gray-300 rounded-md"
                     placeholder="Enter your message"
-                    required
+                    value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    required
                 ></textarea>
             </div>
             <div className="text-center">
                 <button
                     type="submit"
-                    className="px-4 py-2 font-medium text-white bg-green-800 rounded-md hover:bg-green-700"
+                    className={`px-4 py-2 font-medium text-white rounded-md ${
+                        isFormValid
+                            ? "bg-green-800 hover:bg-green-700"
+                            : "bg-gray-400 cursor-not-allowed"
+                    }`}
+                    disabled={!isFormValid}
                 >
                     Send Enquiry
                 </button>
