@@ -1,123 +1,78 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-        "./pages/**/*.{js,jsx}",
-        "./components/**/*.{js,jsx}",
-        "./utils/**/*.{js,jsx}"
-    ],
-    theme: {
-        extend: {
-            fontFamily: {
-                body: ["Inter", "Sans Serif"],
-                title: ["Inter", "Sans Serif"]
-            },
-            fontSize: {
-                body: [
-                    "1rem",
-                    {
-                        lineHeight: "1.5rem"
-                    }
-                ],
-                h1: [
-                    "3.5rem",
-                    {
-                        lineHeight: "3.75rem"
-                    }
-                ],
-                h2: [
-                    "2.25rem",
-                    {
-                        lineHeight: "2.625rem"
-                    }
-                ],
-                h3: [
-                    "1.875rem",
-                    {
-                        lineHeight: "2.25rem"
-                    }
-                ],
-                h4: [
-                    "1.5rem",
-                    {
-                        lineHeight: "2rem"
-                    }
-                ],
-                h5: [
-                    "1.25rem",
-                    {
-                        lineHeight: "1.75rem"
-                    }
-                ],
-                h6: [
-                    "1.125rem",
-                    {
-                        lineHeight: "1.5rem"
-                    }
-                ],
-                mini: [
-                    "0.75rem",
-                    {
-                        lineHeight: "1.5rem"
-                    }
-                ]
-            },
-            colors: {
-                black: {
-                    DEFAULT: "#000000",
-                    50: "#E6E6E6",
-                    100: "#CCCCCC",
-                    200: "#999999",
-                    300: "#666666",
-                    400: "#333333",
-                    500: "#000000",
-                    600: "#000000",
-                    700: "#000000",
-                    800: "#000000",
-                    900: "#000000"
-                },
-                white: {
-                    DEFAULT: "#FFFFFF",
-                    50: "#FFFFFF",
-                    100: "#FCFCFC",
-                    200: "#FCFCFC",
-                    300: "#FAFAFA",
-                    400: "#FAFAFA",
-                    500: "#F7F7F7",
-                    600: "#C7C7C7",
-                    700: "#949494",
-                    800: "#636363",
-                    900: "#303030"
-                },
-                primary: {
-                    50: "#FCFCFC",
-                    100: "#FCFCFC",
-                    200: "#FCFCFC",
-                    300: "#FCFCFC",
-                    400: "#FAFAFA",
-                    500: "#FAFAFA",
-                    600: "#E3E3E3",
-                    700: "#C7C7C7",
-                    800: "#A6A6A6",
-                    900: "#787878",
-                    950: "#595959"
-                },
-                secondary: {
-                    50: "#FFF9F0",
-                    100: "#FFF5E5",
-                    200: "#FFEBCC",
-                    300: "#FFDEAD",
-                    400: "#FFD494",
-                    500: "#FFC56E",
-                    600: "#FFA929",
-                    700: "#EB8D00",
-                    800: "#C77700",
-                    900: "#8A5300",
-                    950: "#663D00"
-                },
-                badge: "#F1F5F9",
-                badgeText: "#475569"
-            }
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#f0f2f9',
+          100: '#e3e7f3',
+          200: '#c7d0e7',
+          300: '#a5b2d8',
+          400: '#8391c5',
+          500: '#3D4D73', // Main logo color
+          600: '#364263',
+          700: '#2f3754',
+          800: '#282d46',
+          900: '#21263b',
+        },
+        secondary: {
+          50: '#fefdf8',
+          100: '#fefbeb',
+          200: '#fef3c7',
+          300: '#fde68a',
+          400: '#fcd34d',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
         }
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        'bounce-subtle': 'bounce-subtle 3s ease-in-out infinite',
+        'fade-in': 'fade-in 0.8s ease-out',
+        'slide-up': 'slide-up 0.8s ease-out',
+        'forge-glow': 'forge-glow 2s ease-in-out infinite alternate',
+        'metallic-shine': 'metallic-shine 3s ease-in-out infinite',
+        'scale-102': 'scale-102 0.3s ease-out',
+      },
+      keyframes: {
+        'bounce-subtle': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'slide-up': {
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'forge-glow': {
+          '0%': { boxShadow: '0 0 5px rgba(61, 77, 115, 0.3)' },
+          '100%': { boxShadow: '0 0 20px rgba(61, 77, 115, 0.6), 0 0 30px rgba(61, 77, 115, 0.4)' },
+        },
+        'metallic-shine': {
+          '0%': { transform: 'translateX(-100%)', opacity: '0' },
+          '50%': { opacity: '1' },
+          '100%': { transform: 'translateX(100%)', opacity: '0' },
+        },
+        'scale-102': {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.02)' },
+        },
+      },
     },
-    plugins: [require("tailwindcss-animate")]
-};
+  },
+  plugins: [],
+}
