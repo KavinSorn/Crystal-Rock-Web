@@ -1,271 +1,271 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card } from '@/components/ui/card'
-import { useAppStore } from '@/stores/appStore'
 import Image from 'next/image'
-
-const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Please enter a valid phone number'),
-  hostelLocation: z.string().min(1, 'Please select a hostel location'),
-  message: z.string().optional(),
-})
-
-type ContactFormData = z.infer<typeof contactSchema>
+import { motion } from 'framer-motion'
 
 const ContactPage: React.FC = () => {
-  const { setCurrentPage } = useAppStore()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
   })
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    console.log('Contact form submitted:', data)
-    setSubmitSuccess(true)
-    reset()
-    setIsSubmitting(false)
-    setTimeout(() => setSubmitSuccess(false), 3000)
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    // Clear error when user starts typing
+    if (errors[e.target.name as keyof typeof errors]) {
+      setErrors({ ...errors, [e.target.name]: '' })
+    }
   }
 
-  const contactInfo = [
-    {
-      title: 'Call Us',
-      value: '+91 98765 43210',
-      icon: '📞',
-      href: 'tel:+919876543210'
-    },
-    {
-      title: 'Email Us',
-      value: 'info@crystalrock.com',
-      icon: '✉️',
-      href: 'mailto:info@crystalrock.com'
-    },
-    {
-      title: 'Visit Us',
-      value: 'Multiple Locations in Bengaluru',
-      icon: '📍',
-      href: '#'
-    },
-    {
-      title: 'WhatsApp',
-      value: '+91 98765 43210',
-      icon: '💬',
-      href: 'https://wa.me/919876543210'
+  const validateForm = () => {
+    const newErrors = {
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
     }
-  ]
+
+    if (!formData.name.trim()) newErrors.name = 'Name is required'
+    if (!formData.email.trim()) newErrors.email = 'Email is required'
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid'
+    if (!formData.phone.trim()) newErrors.phone = 'Phone is required'
+    if (!formData.message.trim()) newErrors.message = 'Message is required'
+
+    setErrors(newErrors)
+    return Object.values(newErrors).every(error => error === '')
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (validateForm()) {
+      // Handle form submission
+      console.log('Form submitted:', formData)
+      // Reset form
+      setFormData({ name: '', email: '', phone: '', message: '' })
+      alert('Thank you for your message! We will get back to you soon.')
+    }
+  }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 pt-32 pb-20 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-bounce-subtle" />
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-secondary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-bounce-subtle" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header Section */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="mb-8 flex justify-center hover:scale-105 transition-transform duration-300">
-            <Image
-              src="/steel-logo.png"
-              alt="Crystal Rock Steel Logo"
-              width={200}
-              height={120}
-              className="object-contain"
-            />
-          </div>
-          
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 animate-slide-up">
-            Get in{' '}
-            <span className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">
-              Touch
-            </span>
+    <section className="min-h-screen pt-32 pb-20 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <Image
+            src="/steel-logo.png"
+            alt="Crystal Rock Steel Logo"
+            width={150}
+            height={150}
+            className="mx-auto mb-8 hover:scale-105 transition-transform"
+          />
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+            Get In Touch
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-slide-up">
-            Ready to experience premium hostel living? Contact us today and let's find the perfect accommodation for you at Crystal Rock.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            We're here to help you find your perfect home. Reach out to us anytime!
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Contact Information */}
-          <div className="animate-slide-up">
-            <Card className="p-8 bg-white/80 backdrop-blur-sm border-primary-100 shadow-xl">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Contact Information</h2>
-              
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <a
-                    key={index}
-                    href={info.href}
-                    className="flex items-center p-4 rounded-xl bg-gradient-to-r from-primary-50 to-primary-100 hover:from-primary-100 hover:to-primary-200 transition-all duration-300 group hover:scale-105 hover:translate-x-2"
-                  >
-                    <div className="text-2xl mr-4 group-hover:scale-110 transition-transform">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                        {info.title}
-                      </h3>
-                      <p className="text-gray-600">{info.value}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-
-              {/* Location Cards */}
-              <div className="mt-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Our Locations</h3>
-                <div className="space-y-3">
-                  {[
-                    { name: 'Crystal Rock Adugodi', address: 'Adugodi, Bengaluru' },
-                    { name: 'Crystal Rock Hennur', address: 'Hennur, Bengaluru' },
-                    { name: 'Crystal Rock HSR', address: 'HSR Layout, Bengaluru' }
-                  ].map((location, index) => (
-                    <div
-                      key={index}
-                      className="p-3 bg-white rounded-lg border border-primary-200 hover:border-primary-300 transition-all duration-300 hover:scale-102 hover:shadow-md"
-                    >
-                      <h4 className="font-medium text-gray-900">{location.name}</h4>
-                      <p className="text-sm text-gray-600">{location.address}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Contact Form */}
-          <div className="animate-slide-up">
-            <Card className="p-8 bg-white/90 backdrop-blur-sm border-primary-100 shadow-xl">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">Send us a Message</h2>
-              
-              {submitSuccess && (
-                <div className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg text-green-700 animate-fade-in">
-                  ✅ Thank you! Your message has been sent successfully.
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="focus-within:scale-105 transition-transform duration-300">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white rounded-3xl shadow-2xl p-8 md:p-10"
+            >
+              <h2 className="text-3xl font-bold mb-8 text-gray-900">Send us a Message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name
+                    Your Name
                   </label>
-                  <Input
-                    {...register('name')}
-                    placeholder="Enter your full name"
-                    className="transition-all duration-300 focus:shadow-lg"
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                      errors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-                  )}
+                  {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
                 </div>
 
-                <div className="focus-within:scale-105 transition-transform duration-300">
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
-                  <Input
+                  <input
                     type="email"
-                    {...register('email')}
-                    placeholder="Enter your email address"
-                    className="transition-all duration-300 focus:shadow-lg"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                      errors.email ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-                  )}
+                  {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
                 </div>
 
-                <div className="focus-within:scale-105 transition-transform duration-300">
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number
                   </label>
-                  <Input
+                  <input
                     type="tel"
-                    {...register('phone')}
-                    placeholder="Enter your phone number"
-                    className="transition-all duration-300 focus:shadow-lg"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+91 98765 43210"
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                      errors.phone ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
-                  {errors.phone && (
-                    <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
-                  )}
+                  {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
                 </div>
 
-                <div className="focus-within:scale-105 transition-transform duration-300">
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Preferred Location
-                  </label>
-                  <select
-                    {...register('hostelLocation')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                  >
-                    <option value="">Select a location</option>
-                    <option value="adugodi">Crystal Rock Adugodi</option>
-                    <option value="hennur">Crystal Rock Hennur</option>
-                    <option value="hsr">Crystal Rock HSR</option>
-                  </select>
-                  {errors.hostelLocation && (
-                    <p className="mt-1 text-sm text-red-600">{errors.hostelLocation.message}</p>
-                  )}
-                </div>
-
-                <div className="focus-within:scale-105 transition-transform duration-300">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Message (Optional)
+                    Message
                   </label>
                   <textarea
-                    {...register('message')}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={4}
-                    placeholder="Tell us about your requirements..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none"
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none ${
+                      errors.message ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="Tell us how we can help you..."
                   />
+                  {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
                 </div>
 
-                <div className="hover:scale-105 active:scale-95 transition-transform duration-300">
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary-500 hover:bg-primary-600 text-white py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Sending...
-                      </div>
-                    ) : (
-                      'Send Message'
-                    )}
-                  </Button>
-                </div>
+                <button
+                  type="submit"
+                  className="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-colors text-lg"
+                >
+                  Send Message
+                </button>
               </form>
-            </Card>
-          </div>
-        </div>
+            </motion.div>
 
-        {/* Back Button */}
-        <div className="text-center mt-16 animate-fade-in">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentPage('home')}
-            className="border-2 border-primary-500 text-primary-500 hover:bg-primary-50 px-8 py-3 font-semibold hover:scale-105 transition-all duration-300"
-          >
-            ← Back to Home
-          </Button>
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="space-y-8"
+            >
+              {/* Quick Contact Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl p-6 text-white"
+                >
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold mb-1">Call Us</h3>
+                  <p className="text-white/90">+91 98765 43210</p>
+                </motion.div>
+
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-6 text-white"
+                >
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold mb-1">Email Us</h3>
+                  <p className="text-white/90">info@crystalrock.com</p>
+                </motion.div>
+              </div>
+
+              {/* Location Cards */}
+              <div className="bg-white rounded-3xl shadow-xl p-8">
+                <h3 className="text-2xl font-bold mb-6">Our Locations</h3>
+                <div className="space-y-6">
+                  {[
+                    {
+                      name: "Crystal Rock Adugodi",
+                      address: "Adugodi, Bengaluru",
+                      color: "from-blue-500 to-blue-700"
+                    },
+                    {
+                      name: "Crystal Rock Hennur",
+                      address: "Hennur, Bengaluru",
+                      color: "from-green-500 to-green-700"
+                    },
+                    {
+                      name: "Crystal Rock HSR",
+                      address: "HSR Layout, Bengaluru",
+                      color: "from-orange-500 to-orange-700"
+                    }
+                  ].map((location, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      className="flex items-center space-x-4"
+                    >
+                      <div className={`w-16 h-16 bg-gradient-to-br ${location.color} rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg`}>
+                        {location.name.split(' ')[2][0]}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{location.name}</h4>
+                        <p className="text-gray-600">{location.address}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Working Hours */}
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 text-white"
+              >
+                <h3 className="text-2xl font-bold mb-4">Working Hours</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span>Monday - Friday</span>
+                    <span className="font-semibold">9:00 AM - 7:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Saturday</span>
+                    <span className="font-semibold">10:00 AM - 5:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sunday</span>
+                    <span className="font-semibold">11:00 AM - 4:00 PM</span>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

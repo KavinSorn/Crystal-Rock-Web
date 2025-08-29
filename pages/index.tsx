@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { NextSeo } from 'next-seo'
-import Navigation from '@/components/layout/Navigation'
 import Hero from '@/components/sections/Hero'
 import Hostels from '@/components/sections/Hostels'
 import Amenities from '@/components/sections/Amenities'
@@ -12,6 +11,7 @@ import ContactPage from '@/components/sections/ContactPage'
 import HostelModal from '@/components/ui/HostelModal'
 import { useAppStore } from '@/stores/appStore'
 import { motion, AnimatePresence } from 'framer-motion'
+import Layout from '@/components/layout/Layout'
 
 export default function Home() {
   const { currentPage, modalData } = useAppStore()
@@ -77,7 +77,7 @@ export default function Home() {
             <Hostels />
             <Amenities />
             <Testimonials />
-            <CTA />
+            {/* <CTA /> */}
           </motion.div>
         )
     }
@@ -122,19 +122,15 @@ export default function Home() {
         ]}
       />
 
-      <div className="min-h-screen bg-primary-50">
-        <Navigation />
-        
-        <main>
-          <AnimatePresence mode="wait">
-            {renderPage()}
-          </AnimatePresence>
-        </main>
+      <Layout>
+        <AnimatePresence mode="wait">
+          {renderPage()}
+        </AnimatePresence>
 
         <AnimatePresence>
           {modalData && <HostelModal />}
         </AnimatePresence>
-      </div>
+      </Layout>
     </>
   )
 }
