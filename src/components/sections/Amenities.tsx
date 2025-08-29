@@ -27,9 +27,9 @@ const ImageShowcase = () => {
   }
 
   return (
-    <div className="relative h-[600px] w-full">
+    <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full">
       {/* Main Display */}
-      <div className="relative h-[450px] w-full rounded-2xl overflow-hidden bg-gray-900">
+      <div className="relative h-[240px] sm:h-[320px] md:h-[400px] lg:h-[450px] w-full rounded-2xl overflow-hidden bg-gray-900">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentImage}
@@ -55,10 +55,10 @@ const ImageShowcase = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute bottom-0 left-0 right-0 p-6 text-white"
+          className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 text-white"
         >
-          <h3 className="text-2xl font-bold mb-2">Facility View {currentImage + 1}</h3>
-          <p className="text-white/80">Explore our premium accommodations and amenities</p>
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2">Facility View {currentImage + 1}</h3>
+          <p className="text-sm sm:text-base text-white/80">Explore our premium accommodations and amenities</p>
         </motion.div>
 
         {/* Navigation Arrows */}
@@ -67,9 +67,9 @@ const ImageShowcase = () => {
             setCurrentImage((prev) => (prev - 1 + hostelImages.length) % hostelImages.length)
             setIsAutoPlaying(false)
           }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-colors"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-colors"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -78,9 +78,9 @@ const ImageShowcase = () => {
             setCurrentImage((prev) => (prev + 1) % hostelImages.length)
             setIsAutoPlaying(false)
           }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-colors"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-colors"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -88,14 +88,14 @@ const ImageShowcase = () => {
         {/* Play/Pause Button */}
         <button
           onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-          className="absolute top-4 right-4 p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-colors"
+          className="absolute top-2 sm:top-4 right-2 sm:right-4 p-1.5 sm:p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-colors"
         >
           {isAutoPlaying ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -104,13 +104,13 @@ const ImageShowcase = () => {
       </div>
 
       {/* Thumbnail Gallery */}
-      <div className="mt-4 relative">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="mt-3 sm:mt-4 relative">
+        <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {hostelImages.map((image, index) => (
             <motion.button
               key={index}
               onClick={() => handleImageClick(index)}
-              className={`relative flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden ${
+              className={`relative flex-shrink-0 w-16 h-12 sm:w-20 sm:h-16 md:w-24 md:h-20 rounded-lg overflow-hidden ${
                 currentImage === index ? 'ring-2 ring-primary-500' : ''
               }`}
               whileHover={{ scale: 1.05 }}
@@ -149,30 +149,30 @@ const ImageShowcase = () => {
 
 const Amenities: React.FC = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Premium Amenities
           </h2>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto font-medium">
+          <p className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto font-medium px-4">
             Experience comfort, community & convenience with our world-class facilities
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start max-w-7xl mx-auto">
           {/* Left side - Image Showcase */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Explore Our Facilities</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Explore Our Facilities</h3>
             <ImageShowcase />
           </motion.div>
 
@@ -182,8 +182,8 @@ const Amenities: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">What We Offer</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">What We Offer</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {amenitiesData.map((amenity, index) => (
                 <motion.div 
                   key={index}
@@ -191,19 +191,19 @@ const Amenities: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.05 }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-white rounded-xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <motion.div 
-                    className="text-4xl mb-4"
+                    className="text-3xl sm:text-4xl mb-3 sm:mb-4"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
                     {amenity.icon}
                   </motion.div>
-                  <h4 className="font-semibold text-gray-900 mb-2">
+                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">
                     {amenity.title}
                   </h4>
-                  <p className="text-sm text-gray-700 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
                     {amenity.description}
                   </p>
                 </motion.div>
