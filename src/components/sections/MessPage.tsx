@@ -36,14 +36,14 @@ const MessPage = () => {
   };
 
   return (
-    <section className="min-h-screen pt-32 pb-20 bg-gradient-to-br from-orange-50 via-white to-red-50">
-      <div className="container mx-auto px-4">
+    <section className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 bg-gradient-to-br from-orange-50 via-white to-red-50">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <div className="flex justify-center mb-6">
             <Image
@@ -54,10 +54,10 @@ const MessPage = () => {
               className="object-contain"
             />
           </div>
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Our Menu
           </h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto px-4">
             Discover our delicious offerings with fresh ingredients and authentic flavors
           </p>
         </motion.div>
@@ -72,7 +72,7 @@ const MessPage = () => {
             className="relative"
           >
             <div className="perspective-1000">
-              <div className="relative w-[600px] h-[800px] mx-auto max-w-[90vw] max-h-[70vh]">
+              <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:w-[600px] lg:h-[800px] mx-auto max-w-[95vw] max-h-[60vh] sm:max-h-[70vh]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentPage}
@@ -91,11 +91,11 @@ const MessPage = () => {
                       alt={menuImages[currentPage].alt}
                       fill
                       className="object-contain rounded-lg"
-                      sizes="(max-width: 768px) 90vw, 600px"
+                      sizes="(max-width: 640px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 600px"
                     />
                     
                     {/* Page number */}
-                    <div className="absolute bottom-6 right-6 bg-black/70 text-white px-4 py-2 rounded-full text-lg">
+                    <div className="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 bg-black/70 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-full text-sm sm:text-lg">
                       {currentPage + 1} / {menuImages.length}
                     </div>
                   </motion.div>
@@ -104,7 +104,7 @@ const MessPage = () => {
             </div>
 
             {/* Simple Dot Navigation */}
-            <div className="flex justify-center mt-8 gap-3">
+            <div className="flex justify-center mt-6 sm:mt-8 gap-2 sm:gap-3">
               {menuImages.map((_, index) => (
                 <button
                   key={index}
@@ -112,7 +112,7 @@ const MessPage = () => {
                     setCurrentPage(index);
                     setIsAutoPlaying(false);
                   }}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                     currentPage === index
                       ? 'bg-orange-500 scale-125'
                       : 'bg-gray-300 hover:bg-orange-300'
@@ -128,29 +128,29 @@ const MessPage = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20"
+          className="mt-16 sm:mt-20"
         >
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🍽️</span>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="text-center px-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl sm:text-2xl">🍽️</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Fresh Ingredients</h3>
-              <p className="text-gray-700">All our dishes are prepared with the freshest ingredients sourced locally.</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Fresh Ingredients</h3>
+              <p className="text-sm sm:text-base text-gray-700">All our dishes are prepared with the freshest ingredients sourced locally.</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">👨‍🍳</span>
+            <div className="text-center px-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl sm:text-2xl">👨‍🍳</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Expert Chefs</h3>
-              <p className="text-gray-700">Our experienced chefs bring authentic flavors to every meal.</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Expert Chefs</h3>
+              <p className="text-sm sm:text-base text-gray-700">Our experienced chefs bring authentic flavors to every meal.</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">⏰</span>
+            <div className="text-center px-4 sm:col-span-2 lg:col-span-1">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl sm:text-2xl">⏰</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Timely Service</h3>
-              <p className="text-gray-700">Meals served on time, every time, to keep you satisfied.</p>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Timely Service</h3>
+              <p className="text-sm sm:text-base text-gray-700">Meals served on time, every time, to keep you satisfied.</p>
             </div>
           </div>
         </motion.div>

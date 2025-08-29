@@ -33,7 +33,7 @@ const Navigation: React.FC = () => {
               alt="Crystal Rock Logo"
               width={180}
               height={60}
-              className="object-contain"
+              className="object-contain w-32 sm:w-40 md:w-44 lg:w-48"
             />
           </div>
 

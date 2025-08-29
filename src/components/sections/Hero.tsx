@@ -77,7 +77,7 @@ const Hero: React.FC = () => {
             </motion.div>
 
             <motion.h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
             </motion.h1>
 
             <motion.p
-              className="text-xl text-white/80 mb-8 leading-relaxed"
+              className="text-lg sm:text-xl text-white/80 mb-8 leading-relaxed px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}

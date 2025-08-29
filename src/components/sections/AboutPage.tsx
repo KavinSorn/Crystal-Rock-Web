@@ -41,8 +41,8 @@ const AboutPage: React.FC = () => {
                 <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
               </svg>
             </div>
-            <h3 className="text-3xl font-bold mb-4">Our Mission</h3>
-            <p className="text-white/90 leading-relaxed">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4">Our Mission</h3>
+            <p className="text-white/90 leading-relaxed text-sm sm:text-base">
               To provide exceptional living spaces that foster growth, productivity, and meaningful connections 
               for ambitious professionals and students in Bengaluru.
             </p>
@@ -59,8 +59,8 @@ const AboutPage: React.FC = () => {
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
             </div>
-            <h3 className="text-3xl font-bold mb-4">Our Vision</h3>
-            <p className="text-white/90 leading-relaxed">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4">Our Vision</h3>
+            <p className="text-white/90 leading-relaxed text-sm sm:text-base">
               To become India's most trusted and innovative co-living brand, setting new standards 
               for quality, community, and resident satisfaction.
             </p>
