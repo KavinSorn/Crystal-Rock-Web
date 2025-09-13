@@ -13,6 +13,39 @@ import { useAppStore } from '@/stores/appStore'
 import { motion, AnimatePresence } from 'framer-motion'
 import Layout from '@/components/layout/Layout'
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "name": "Crystal Rock PG",
+  "description": "Affordable and comfortable PG and hostel accommodation in Bengaluru for students and professionals.",
+  "url": "https://crystalrockpg.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bengaluru",
+    "addressRegion": "Karnataka",
+    "addressCountry": "IN"
+  },
+  "telephone": "+91-XXXXXXXXXX",
+  "priceRange": "₹₹",
+  "amenityFeature": [
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "WiFi",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification", 
+      "name": "Laundry",
+      "value": true
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      "name": "Security",
+      "value": true
+    }
+  ]
+}
+
 export default function Home() {
   const { currentPage, modalData } = useAppStore()
 
@@ -85,35 +118,41 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
       <NextSeo
-        title="Crystal Rock Accommodations - Premium Hostel Living in Bengaluru"
-        description="Experience comfort, community & convenience at Crystal Rock - Premium hostel accommodations across Adugodi, Hennur, and HSR Layout in Bengaluru"
-        canonical="https://crystalrockaccommodations.com"
+        title="Welcome to Crystal Rock PG - Your Home Away From Home"
+        description="Affordable and comfortable PG and hostel accommodation in Bengaluru for students and professionals."
+        canonical="https://crystalrockpg.com"
         openGraph={{
           type: 'website',
           locale: 'en_IN',
-          url: 'https://crystalrockaccommodations.com',
-          title: 'Crystal Rock Accommodations - Premium Hostel Living in Bengaluru',
-          description: 'Experience comfort, community & convenience at Crystal Rock - Premium hostel accommodations across Adugodi, Hennur, and HSR Layout in Bengaluru',
+          url: 'https://crystalrockpg.com',
+          title: 'Welcome to Crystal Rock PG - Your Home Away From Home',
+          description: 'Affordable and comfortable PG and hostel accommodation in Bengaluru for students and professionals.',
           images: [
             {
-              url: '/logo_landscape.png',
+              url: '/images/hostel-exterior.jpg',
               width: 1200,
               height: 630,
-              alt: 'Crystal Rock Accommodations',
+              alt: 'Crystal Rock PG - Hostel Exterior',
             },
           ],
-          siteName: 'Crystal Rock Accommodations',
+          siteName: 'Crystal Rock PG',
         }}
         twitter={{
           cardType: 'summary_large_image',
-          site: '@crystalrock',
-          handle: '@crystalrock',
+          site: '@crystalrockpg',
+          handle: '@crystalrockpg',
         }}
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: 'hostel, accommodation, bengaluru, bangalore, co-living, shared living, IT professionals, students',
+            content: 'PG accommodation, hostel, bengaluru, bangalore, students, professionals, affordable, comfortable, crystal rock',
           },
           {
             name: 'viewport',

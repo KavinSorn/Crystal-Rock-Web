@@ -20,21 +20,23 @@ const Navigation: React.FC = () => {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-[#3D4D73] backdrop-blur-sm border-b border-[#3D4D73]/20 z-50">
+    <header>
+      <nav className="fixed top-0 left-0 right-0 bg-[#3D4D73] backdrop-blur-sm border-b border-[#3D4D73]/20 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <div 
-            className="flex items-center cursor-pointer hover:scale-105 transition-transform duration-300"
+            className="flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={() => handleNavClick('home')}
           >
             <Image
-              src="/logo_removebg.png"
+              src="/steel-logo.png"
               alt="Crystal Rock Logo"
-              width={180}
-              height={60}
-              className="object-contain w-32 sm:w-40 md:w-44 lg:w-48"
+              width={80}
+              height={32}
+              className="object-contain w-14 sm:w-16 md:w-20 lg:w-24"
             />
+            <h3 className="text-2xl font-bold text-white tracking-tight">Crystal Rock</h3>
           </div>
 
           {/* Desktop Navigation */}
@@ -106,6 +108,7 @@ const Navigation: React.FC = () => {
         )}
       </div>
     </nav>
+    </header>
   )
 }
 
