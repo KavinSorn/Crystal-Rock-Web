@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useAppStore } from '@/stores/appStore'
 import { PageType } from '@/types'
@@ -6,6 +6,16 @@ import { cn } from '@/lib/utils'
 
 const Navigation: React.FC = () => {
   const { currentPage, isMenuOpen, setCurrentPage, toggleMenu } = useAppStore()
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleNavClick = (page: PageType) => {
     setCurrentPage(page)
@@ -21,7 +31,12 @@ const Navigation: React.FC = () => {
 
   return (
     <header>
-      <nav className="fixed top-0 left-0 right-0 bg-[#3D4D73] backdrop-blur-sm border-b border-[#3D4D73]/20 z-50">
+      <nav className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled 
+          ? "bg-[#3D4D73] backdrop-blur-md shadow-lg border-b border-[#3D4D73]/30" 
+          : "bg-[#3D4D73] backdrop-blur-sm border-b border-[#3D4D73]/20"
+      )}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { NextSeo } from 'next-seo'
 import Hero from '@/components/sections/Hero'
+import HSRPromo from '@/components/sections/HSRPromo'
 import Hostels from '@/components/sections/Hostels'
 import Amenities from '@/components/sections/Amenities'
 import Testimonials from '@/components/sections/Testimonials'
@@ -107,10 +108,11 @@ export default function Home() {
             transition={{ duration: 0.3 }}
           >
             <Hero />
+            <HSRPromo />
             <Hostels />
             <Amenities />
             <Testimonials />
-            {/* <CTA /> */}
+            <CTA />
           </motion.div>
         )
     }

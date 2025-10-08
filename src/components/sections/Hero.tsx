@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useAppStore } from '@/stores/appStore'
 
 const Hero: React.FC = () => {
   const [mounted, setMounted] = useState(false);
+  const { setCurrentPage } = useAppStore()
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleBookTour = () => {
+    setCurrentPage('contact')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleViewLocations = () => {
+    const hostelsSection = document.getElementById('hostels')
+    if (hostelsSection) {
+      hostelsSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
@@ -103,10 +117,16 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <button className="px-8 py-4 bg-white text-primary-800 font-semibold rounded-xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
+              <button 
+                onClick={handleBookTour}
+                className="px-8 py-4 bg-white text-primary-800 font-semibold rounded-xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl"
+              >
                 Book a Tour
               </button>
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 border border-white/20">
+              <button 
+                onClick={handleViewLocations}
+                className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 border border-white/20"
+              >
                 View Locations
               </button>
             </motion.div>

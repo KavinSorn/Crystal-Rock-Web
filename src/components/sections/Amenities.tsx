@@ -154,7 +154,8 @@ const Amenities: React.FC = () => {
         <motion.div 
           className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -165,52 +166,71 @@ const Amenities: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start max-w-7xl mx-auto">
-          {/* Left side - Image Showcase */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Explore Our Facilities</h3>
-            <ImageShowcase />
-          </motion.div>
+        {/* Full-width Image Showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-7xl mx-auto mb-16"
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Explore Our Facilities</h3>
+            <p className="text-gray-600">Take a visual tour of our premium accommodations</p>
+          </div>
+          <ImageShowcase />
+        </motion.div>
 
-          {/* Right side - Amenities Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">What We Offer</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {amenitiesData.map((amenity, index) => (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white rounded-xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <motion.div 
-                    className="text-3xl sm:text-4xl mb-3 sm:mb-4"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {amenity.icon}
-                  </motion.div>
-                  <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">
-                    {amenity.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                    {amenity.description}
-                  </p>
-                </motion.div>
-              ))}
+        {/* Divider */}
+        <div className="max-w-7xl mx-auto mb-12">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
             </div>
-          </motion.div>
+            <div className="relative flex justify-center">
+              <span className="bg-gradient-to-b from-gray-50 to-white px-6 text-lg font-semibold text-gray-900">
+                What We Offer
+              </span>
+            </div>
+          </div>
         </div>
+
+        {/* Amenities Grid - 4 columns */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            {amenitiesData.map((amenity, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white rounded-xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+              >
+                <motion.div 
+                  className="text-3xl sm:text-4xl mb-3 sm:mb-4"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {amenity.icon}
+                </motion.div>
+                <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">
+                  {amenity.title}
+                </h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  {amenity.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   )

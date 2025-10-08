@@ -105,6 +105,51 @@ export const testimonialsData: Testimonial[] = [
       name: "Anjali Patel",
       role: "Startup Founder"
     }
+  },
+  {
+    rating: "★★★★★",
+    content: "The food at CR Mess is amazing! Home-cooked quality meals every day. The management is very responsive to any concerns.",
+    author: {
+      avatar: "SK",
+      name: "Suresh Kumar",
+      role: "Data Analyst"
+    }
+  },
+  {
+    rating: "★★★★★",
+    content: "I was worried about moving to a new city, but Crystal Rock made the transition so smooth. The staff is helpful and the residents are friendly.",
+    author: {
+      avatar: "NM",
+      name: "Neha Malhotra",
+      role: "Product Manager"
+    }
+  },
+  {
+    rating: "★★★★★",
+    content: "Great value for money! All amenities are well-maintained, and the location is convenient for my office commute. Highly recommended!",
+    author: {
+      avatar: "AM",
+      name: "Arun Menon",
+      role: "Business Analyst"
+    }
+  },
+  {
+    rating: "★★★★★",
+    content: "Living at Crystal Rock HSR has been fantastic. The vibrant neighborhood with cafes nearby and the rooftop terrace is perfect for unwinding after work.",
+    author: {
+      avatar: "DG",
+      name: "Divya Gupta",
+      role: "UX Designer"
+    }
+  },
+  {
+    rating: "★★★★★",
+    content: "Security is top-notch, and housekeeping is regular. My parents visited and were impressed with how well-maintained everything is!",
+    author: {
+      avatar: "VR",
+      name: "Vikram Reddy",
+      role: "Consultant"
+    }
   }
 ]
 
